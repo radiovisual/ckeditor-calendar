@@ -25,7 +25,7 @@ CKEDITOR.plugins.add('calendar', {
 		});
 
 		// Tell the editor to load the dialog file when the button is clicked.
-		CKEDITOR.dialog.add('calendarDialog', this.path + 'dialogs/calendar.js');
+		CKEDITOR.dialog.add('calendarDialog', this.path + 'dialogs/cke_google_calendar.js');
 
 		// load the context menu
 		if (editor.contextMenu) {
