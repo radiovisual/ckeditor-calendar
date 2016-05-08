@@ -15,7 +15,7 @@ CKEDITOR.plugins.add('calendar', {
 		editor.addContentsCss(this.path + 'css/editor.css');
 
 		editor.addCommand('calendar', new CKEDITOR.dialogCommand('calendarDialog', {
-			allowedContent: 'iframe{*}[!width,!height,!src,!style,!frameborder,!allowfullscreen];'
+			allowedContent: 'iframe{*}[*];'
 		}));
 
 		editor.ui.addButton('Calendar', {
