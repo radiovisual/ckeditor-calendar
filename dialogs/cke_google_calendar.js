@@ -36,6 +36,25 @@ CKEDITOR.dialog.add('calendarDialog', function (editor) {
 							this.setValue(containingElement.outerHTML);
 						}
 					}
+				}, {
+					type: 'checkbox',
+					id: 'responsive',
+					label: 'Responsive? (check if you want the calendar to scale)',
+					default: 'checked',
+					setup: function (element) {
+						console.log('e', element);
+						console.log('t', this);
+
+						var containingElement = element.$.firstElementChild;
+
+						if (containingElement && containingElement.localName === 'iframe') {
+							if (containingElement.hasAttribute('width') && containingElement.getAttribute('width') === '100%') {
+								this.setValue(true, false);
+							} else {
+								this.setValue(false, false);
+							}
+						}
+					}
 				}]
 			}
 		],
@@ -68,6 +87,7 @@ CKEDITOR.dialog.add('calendarDialog', function (editor) {
 			if (dialog.insertMode) {
 				element.setAttribute('class', 'calendar-insulator');
 				embedIframe.appendTo(element);
+				embedIframe.setAttribute('width', '100%');
 				editor.insertElement(element);
 			} else {
 				// just update the embed markup that is currently in the editor
@@ -90,6 +110,12 @@ CKEDITOR.dialog.add('calendarDialog', function (editor) {
 					Object.keys(newAttributes).map(function (key) {
 						currentIframe.setAttribute(key, newAttributes[key]);
 					});
+
+					// force 100% width if the `responsive` is checked
+					if (dialog.getValueOf('tab-basic', 'responsive')) {
+						currentIframe.setAttribute('width', '100%');
+					}
+
 				} else {
 					console.log('ignoring non-iframe element:', currentIframe.getName());
 				}
